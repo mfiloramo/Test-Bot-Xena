@@ -1,24 +1,26 @@
 import praw
-
-# import config
-
-# def login():
-#     r = praw.Reddit(user_agent=config.user_agent,
-#                     username=config.username,
-#                     password=config.password,
-#                     client_id=config.client_id,
-#                     client_secret=config.client_secret,
-
+from main import config
 
 def login():
-    r = praw.Reddit(user_agent="test_bot_xena",
-                    username="test_bot_xena",
-                    password="Quailk777!!!",
-                    client_id="whlMP0C9rsqDsg",
-                    client_secret="UXgHQPC4fUYPcaHCz3MgkByt0G4lvg",
+    r = praw.Reddit(user_agent=config.user_agent,
+                    username=config.username,
+                    password=config.password,
+                    client_id=config.client_id,
+                    client_secret=config.client_secret,
                     )
     print("Logged in.")
     return r
+
+
+# def login():
+#     r = praw.Reddit(user_agent="test_bot_xena",
+#                     username="test_bot_xena",
+#                     password="Quailk777!!!",
+#                     client_id="whlMP0C9rsqDsg",
+#                     client_secret="UXgHQPC4fUYPcaHCz3MgkByt0G4lvg",
+#                     )
+#     print("Logged in.")
+#     return r
 
 
 def run_bot(r):
