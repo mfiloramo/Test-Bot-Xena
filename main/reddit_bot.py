@@ -1,6 +1,6 @@
 import praw
 
-import config
+# import config
 
 # def login():
 #     r = praw.Reddit(user_agent=config.user_agent,
