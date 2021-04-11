@@ -28,7 +28,7 @@ def run_bot(r):
     submission = r.submission(url="https://www.reddit.com/user/test_bot_xena/comments/mm4oqz/im_a_bot_testing/")
     all_comments = submission.comments.list()
     logged_posts = []
-    with open('log.txt', 'r+') as log_file:
+    with open('main/log.txt', 'r+') as log_file:
         opened_file = log_file.readlines()
         for line in opened_file:
             logged_posts.append(line.rstrip())
