@@ -2,13 +2,20 @@ import praw
 
 import config
 
+# def login():
+#     r = praw.Reddit(user_agent=config.user_agent,
+#                     username=config.username,
+#                     password=config.password,
+#                     client_id=config.client_id,
+#                     client_secret=config.client_secret,
+
 
 def login():
-    r = praw.Reddit(user_agent=config.user_agent,
-                    username=config.username,
-                    password=config.password,
-                    client_id=config.client_id,
-                    client_secret=config.client_secret,
+    r = praw.Reddit(user_agent="test_bot_xena",
+                    username="Calif0rnia_Soul",
+                    password="Quailk777!!!",
+                    client_id="whlMP0C9rsqDsg",
+                    client_secret="UXgHQPC4fUYPcaHCz3MgkByt0G4lvg",
                     )
     print("Logged in.")
     return r
