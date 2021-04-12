@@ -25,11 +25,11 @@ def run_bot(r):
     #     for line in opened_file:
     #         logged_posts.append(line.rstrip())
 
+    # Generate random sentences for each unlogged comment.
     for comment in all_comments:
         word_count = 0
         word_limit = random.randint(4, 12)
         sentence = ""
-
         while word_count < word_limit:
             sentence += random.choice([random.choice(rand_items.conjunctions).lower(),
                                        random.choice(rand_items.words)]).lower() + str(" ")
@@ -38,6 +38,7 @@ def run_bot(r):
             sentence += random.choice([random.choice(rand_items.conjunctions).lower(),
                                        random.choice(rand_items.words)]).lower()
 
+        # Reply to a comment once the bot is summoned and the comment ID is unlogged.
         if "!summon" in comment.body and comment not in cache:
             # log_file.write(f"{comment}\n")
             cache.append(f"{comment}")
