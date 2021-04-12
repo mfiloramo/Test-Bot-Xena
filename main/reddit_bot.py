@@ -57,7 +57,7 @@ def babble(r):
 
 def pokemon_link(r):
     """Generates a link to a Pokemon if any are mentioned."""
-    submission = r.submission(id="mpjqtz")
+    submission = r.submission(id="mpgxm0")
     all_comments = submission.comments.list()
     pokemon_list = ['Bulbasaur', 'Ivysaur', 'Venusaur', 'Charmander', 'Charmeleon', 'Charizard', 'Squirtle',
                     'Wartortle', 'Blastoise', 'Caterpie', 'Metapod', 'Butterfree', 'Weedle', 'Kakuna', 'Beedrill',
