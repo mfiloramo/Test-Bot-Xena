@@ -88,6 +88,7 @@ def pokemon_link(r):
                                       f"{pokemon} [here](https://www.pokemon.com/us/pokedex/{word.lower()}).\n\n"
                                       "*Beep boop. I'm a bot in the making!*\n"
                                       "*This action was performed automatically.*")
+                        continue
     except AttributeError:
         pass
 
@@ -99,13 +100,13 @@ def delete_comments(r):
 
     # Identifies and removes own comments.
     all_comments = submission.comments.list()
-    # try:
-    for comment in all_comments:
-        if comment.author == "test_bot_xena":
-            print("Deleting comments...")
-            comment.delete()
-    # except AttributeError:
-    #     pass
+    try:
+        for comment in all_comments:
+            if comment.author == "test_bot_xena":
+                print("Deleting comments...")
+                comment.delete()
+    except AttributeError:
+        pass
 
 # Set up empty cache for run_bot usage.
 cache = []
