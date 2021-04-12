@@ -25,7 +25,7 @@ def login():
 
 
 def run_bot(r):
-    """Scrapes a subreddit and continually lists the top 10 posts."""
+    """Looks at comments within own submission and automatically responds to user."""
     submission = r.submission(url="https://www.reddit.com/user/test_bot_xena/comments/mm4oqz/im_a_bot_testing/")
     all_comments = submission.comments.list()
     logged_posts = []
