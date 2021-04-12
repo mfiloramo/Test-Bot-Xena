@@ -23,10 +23,12 @@ def run_bot(r):
         for line in opened_file:
             logged_posts.append(line.rstrip())
         for comment in all_comments:
-            if comment.author == "Calif0rnia_Soul" and comment not in logged_posts:
+            # if comment.author == "Calif0rnia_Soul" and comment not in logged_posts:
+            if "!summon" in comment.body and comment not in logged_posts:
                 log_file.write(f"{comment}\n")
                 print("New comment detected. Responding...")
-                comment.reply("Hello there!")
+                comment.reply("Beep boop. I'm a bot in the making!\n\n"
+                              "*This action was performed automatically.*")
 
 
 def delete_comments(r):
