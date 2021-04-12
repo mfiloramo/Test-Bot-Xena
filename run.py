@@ -1,5 +1,6 @@
-from main import reddit_bot
 import praw
+from main import reddit_bot
+
 
 r = praw.Reddit(user_agent="test_bot_xena",
                     username="test_bot_xena",

@@ -1,3 +1,5 @@
+import time
+
 import praw
 from main import config
 from modules import rand_items
@@ -55,7 +57,7 @@ def babble(r):
 
 def pokemon_link(r):
     """Generates a link to a Pokemon if any are mentioned."""
-    submission = r.submission(id="mpk3s5")
+    submission = r.submission(id="mpjqtz")
     all_comments = submission.comments.list()
     pokemon_list = ['Bulbasaur', 'Ivysaur', 'Venusaur', 'Charmander', 'Charmeleon', 'Charizard', 'Squirtle',
                     'Wartortle', 'Blastoise', 'Caterpie', 'Metapod', 'Butterfree', 'Weedle', 'Kakuna', 'Beedrill',
@@ -88,6 +90,7 @@ def pokemon_link(r):
                                       f"{pokemon} [here](https://www.pokemon.com/us/pokedex/{word.lower()}).\n\n"
                                       "*Beep boop. I'm a bot in the making!*\n"
                                       "*This action was performed automatically.*")
+                        time.sleep(30)
                         continue
     except AttributeError:
         pass
