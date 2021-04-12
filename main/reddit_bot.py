@@ -45,7 +45,7 @@ def run_bot(r):
             # log_file.write(f"{comment}\n")
             cache.append(f"{comment}")
             print("New comment detected. Responding...")
-            comment.reply(f"{sentence.capitalize()}\n\n"
+            comment.reply(f"{sentence.capitalize()}{random.choice(rand_items.punctuation)}\n\n"
                           "*Beep boop. I'm a bot in the making!*\n"
                           "*This action was performed automatically.*")
 
