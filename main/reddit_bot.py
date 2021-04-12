@@ -1,5 +1,6 @@
 import praw
 from main import config
+from modules import random_sentences_gen
 
 
 def login():
@@ -27,7 +28,8 @@ def run_bot(r):
             # log_file.write(f"{comment}\n")
             cache.append(f"{comment}")
             print("New comment detected. Responding...")
-            comment.reply("Beep boop. I'm a bot in the making!\n\n"
+            comment.reply(f"{random_sentences_gen.rand_sentence}\n\n"
+                          "*Beep boop. I'm a bot in the making!*\n\n"
                           "*This action was performed automatically.*")
 
 
