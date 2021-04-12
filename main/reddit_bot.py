@@ -31,7 +31,7 @@ def run_bot(r):
 
 def babble(r):
     """Generate random sentences for each unlogged comment once bot is summoned."""
-    submission = r.submission(id="mpba98")
+    submission = r.submission(id="mpk3s5")
     all_comments = submission.comments.list()
     key_words = ['babble', 'blabber', 'gibberish', 'jargon', 'rant', 'ranting', 'ranted', 'random',
                  'drone', 'arbitrary', 'aimless', 'weird', 'unusual']
@@ -72,7 +72,7 @@ def babble(r):
 
 def pokemon_link(r):
     """Generates a link to a Pokemon if any are mentioned."""
-    submission = r.submission(id="mpdc90")
+    submission = r.submission(id="mpk3s5")
     all_comments = submission.comments.list()
     pokemon_list = ['Bulbasaur', 'Ivysaur', 'Venusaur', 'Charmander', 'Charmeleon', 'Charizard', 'Squirtle',
                     'Wartortle', 'Blastoise', 'Caterpie', 'Metapod', 'Butterfree', 'Weedle', 'Kakuna', 'Beedrill',
