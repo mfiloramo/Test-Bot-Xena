@@ -1,6 +1,7 @@
 import praw
 from main import config
 
+
 def login():
     r = praw.Reddit(user_agent=config.user_agent,
                     username=config.username,
@@ -28,7 +29,7 @@ def run_bot(r):
     submission = r.submission(url="https://www.reddit.com/user/test_bot_xena/comments/mm4oqz/im_a_bot_testing/")
     all_comments = submission.comments.list()
     logged_posts = []
-    with open('main/log.txt', 'r+') as log_file:
+    with open('log.txt', 'r+') as log_file:
         opened_file = log_file.readlines()
         for line in opened_file:
             logged_posts.append(line.rstrip())
@@ -37,8 +38,6 @@ def run_bot(r):
                 log_file.write(f"{comment}\n")
                 print("New comment detected. Responding...")
                 comment.reply("Hello there!")
-            # else:
-            #     continue
 
 
 def delete_comments(r):
