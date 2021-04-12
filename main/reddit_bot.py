@@ -64,7 +64,7 @@ reddit = login()
 print("Running...")
 
 while True:
-    # run_bot(reddit)
-    delete_comments(reddit)
+    run_bot(reddit)
+    # delete_comments(reddit)
 
 
