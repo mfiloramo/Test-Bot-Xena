@@ -1,2 +1,2 @@
-web: reddit_bot.py
-worker: reddit_bot.py
+web: main/run.py
+worker: main/run.py
