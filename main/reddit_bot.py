@@ -31,8 +31,12 @@ def run_bot(r):
 
 def babble(r):
     """Generate random sentences for each unlogged comment once bot is summoned."""
-    submission = r.submission(url="https://www.reddit.com/user/test_bot_xena/comments/mpk3s5/test_post_2/")
+    submission = r.submission(id="mpba98")
     all_comments = submission.comments.list()
+    key_words = ['babble', 'blabber', 'gibberish', 'jargon', 'rant', 'ranting', 'ranted', 'random',
+                 'drone', 'arbitrary', 'aimless', 'weird', 'unusual']
+
+    # Forms the babble sentences each time per comment.
     for comment in all_comments:
         word_count = 0
         word_limit = random.randint(4, 12)
@@ -45,19 +49,30 @@ def babble(r):
             sentence += random.choice([random.choice(rand_items.conjunctions).lower(),
                                        random.choice(rand_items.words)]).lower()
 
-        # Reply to a comment once the bot is summoned and the comment ID is unlogged.
-        if "!summon" in comment.body and comment not in cache:
-            # log_file.write(f"{comment}\n")
-            cache.append(f"{comment}")
-            print("New comment detected. Responding...")
-            comment.reply(f"{sentence.capitalize()}{random.choice(rand_items.punctuation)}\n"
-                          "*Beep boop. I'm a bot in the making!*\n"
-                          "*This action was performed automatically.*")
+        try:
+            for comment in all_comments:
+                if comment not in cache and comment.author is not None and comment.author != "test_bot_xena":
+                    for word in comment.body.split():
+                        if word.lower() in key_words or word.capitalize() in key_words:
+
+                            # Reply to a comment once the bot is summoned and the comment ID is unlogged.
+                            # if "!summon" in comment.body and comment not in cache:
+                            # log_file.write(f"{comment}\n")
+
+                            cache.append(f"{comment}")
+                            print("New comment detected. Responding...")
+                            comment.reply(f"Hey you. I see that you mentioned '{word}.' I can do that!\n\n"
+                                          f"{sentence.capitalize()}{random.choice(rand_items.punctuation)}\n\n"
+                                          "*Beep boop. I'm a prototype bot in the making!*\n"
+                                          "*This action was performed automatically.*")
+                            # time.sleep(10)
+        except AttributeError:
+            pass
 
 
 def pokemon_link(r):
     """Generates a link to a Pokemon if any are mentioned."""
-    submission = r.submission(id="mpgxm0")
+    submission = r.submission(id="mpdc90")
     all_comments = submission.comments.list()
     pokemon_list = ['Bulbasaur', 'Ivysaur', 'Venusaur', 'Charmander', 'Charmeleon', 'Charizard', 'Squirtle',
                     'Wartortle', 'Blastoise', 'Caterpie', 'Metapod', 'Butterfree', 'Weedle', 'Kakuna', 'Beedrill',
@@ -88,7 +103,7 @@ def pokemon_link(r):
                         print("New comment detected. Responding...")
                         comment.reply(f"I see that you mentioned {pokemon}. You can learn more about "
                                       f"{pokemon} [here](https://www.pokemon.com/us/pokedex/{word.lower()}).\n\n"
-                                      "*Beep boop. I'm a bot in the making!*\n"
+                                      "*Beep boop. I'm a prototype bot in the making!*\n"
                                       "*This action was performed automatically.*")
                         time.sleep(30)
                         continue
