@@ -13,17 +13,6 @@ def login():
     return r
 
 
-# def login():
-#     r = praw.Reddit(user_agent="test_bot_xena",
-#                     username="test_bot_xena",
-#                     password="Quailk777!!!",
-#                     client_id="whlMP0C9rsqDsg",
-#                     client_secret="UXgHQPC4fUYPcaHCz3MgkByt0G4lvg",
-#                     )
-#     print("Logged in.")
-#     return r
-
-
 def run_bot(r):
     """Looks at comments within own submission and automatically responds to user."""
     submission = r.submission(url="https://www.reddit.com/user/test_bot_xena/comments/mm4oqz/im_a_bot_testing/")
