@@ -58,14 +58,14 @@ def delete_comments(r):
             comment.delete()
 
 
+# Set up empty cache for run_bot usage.
 cache = []
 
+# Log into the Reddit using the user agent.
 reddit = login()
 
+# Notify user that bot is running.
 print("Running...")
 
-while True:
-    run_bot(reddit)
-    # delete_comments(reddit)
 
 
