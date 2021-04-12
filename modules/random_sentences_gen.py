@@ -16,4 +16,4 @@ while word_count <= word_limit:
 #  and also capitalized the first letter of the string. Then, I added a random
 #  punctuation mark from the rand_items module I created.
 
-rand_sentence = f"{sentence.rstrip(' ').capitalize()}{random.choice(rand_items.punctuation)}"
+# rand_sentence = f"{sentence.rstrip(' ').capitalize()}{random.choice(rand_items.punctuation)}"
