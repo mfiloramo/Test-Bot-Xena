@@ -23,6 +23,8 @@ def run_bot(r):
     all_comments = submission.comments.list()
     pokemon_list = ['bulbasaur', 'ivysaur']
 
+    # This keeps track of posts in a separate text file when run from a local machine.
+    # Currently cannot be actively managed/used on a cloud server.
     # with open('log.txt', 'r+') as log_file:
     #     opened_file = log_file.readlines()
     #     for line in opened_file:
@@ -72,7 +74,7 @@ def babble(r):
 
 def pokemon_link(r):
     """Generates a link to a Pokemon if any are mentioned."""
-    submission = r.submission(id="mpk3s5")
+    submission = r.submission(id="mpk4qo")
     all_comments = submission.comments.list()
     pokemon_list = ['Bulbasaur', 'Ivysaur', 'Venusaur', 'Charmander', 'Charmeleon', 'Charizard', 'Squirtle',
                     'Wartortle', 'Blastoise', 'Caterpie', 'Metapod', 'Butterfree', 'Weedle', 'Kakuna', 'Beedrill',
@@ -105,7 +107,7 @@ def pokemon_link(r):
                                       f"{pokemon} [here](https://www.pokemon.com/us/pokedex/{word.lower()}).\n\n"
                                       "*Beep boop. I'm a prototype bot in the making!*\n"
                                       "*This action was performed automatically.*")
-                        time.sleep(30)
+                        time.sleep(120)
                         continue
     except AttributeError:
         pass
