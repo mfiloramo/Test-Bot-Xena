@@ -126,11 +126,11 @@ def delete_comments(r):
     except AttributeError:
         pass
 
-# Set up empty cache for run_bot usage.
-cache = []
-
 # Log into the Reddit using the user agent.
 reddit = login()
+
+# Set up empty cache for bot usage (typically for tracking posts).
+cache = []
 
 # Notify user that bot is running.
 print("Running...")
