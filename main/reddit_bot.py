@@ -17,28 +17,44 @@ def login():
     return r
 
 
-def run_bot(r):
+def summon_bot(r):
     """Looks at comments within own submission and automatically responds to user."""
-    submission = r.submission(url="https://www.reddit.com/user/test_bot_xena/comments/mpk3s5/test_post_2/")
+    # Points the bot at a particular submission.
+    submission = r.submission(id="mpk3s5")
     all_comments = submission.comments.list()
-    pokemon_list = ['bulbasaur', 'ivysaur']
 
-    # This keeps track of posts in a separate text file when run from a local machine.
+    # Waits to be summoned upon command and replies to the comment.
+    for comment in all_comments:
+        if "!summon" in comment.body or "xena" in comment.body and comment.author is not None and comment not in cache:
+                print("New comment detected. Responding...")
+                comment.reply("I have been summoned.")
+                cache.append(comment)
+
+
+def log_track(r):
+    """
+    Keeps track of posts in a separate text file when run from a local machine.
     # Currently cannot be actively managed/used on a cloud server.
-    # with open('log.txt', 'r+') as log_file:
-    #     opened_file = log_file.readlines()
-    #     for line in opened_file:
-    #         logged_posts.append(line.rstrip())
+    """
+    # Points the bot at a particular submission.
+    submission = r.submission(id="mpk3s5")
+    all_comments = submission.comments.list()
 
-    # Reply to a comment once the bot is summoned and the comment ID is unlogged.
-    # if "!summon" in comment.body and comment not in cache:
-    # log_file.write(f"{comment}\n")
+    for comment in all_comments:
+        # Currently has no particular condition for responses.
+        if comment.author is not None and comment not in log_file:
+            with open('log.txt', 'r+') as log_file:
+                opened_file = log_file.readlines()
+                for line in opened_file:
+                    log_file.write(line.rstrip())
 
 
 def babble(r):
     """Generate random sentences for each unlogged comment once bot is summoned."""
+    # Points the bot at a particular submission.
     submission = r.submission(id="mpk3s5")
     all_comments = submission.comments.list()
+
     key_words = ['babble', 'blabber', 'gibberish', 'jargon', 'rant', 'ranting', 'ranted', 'random',
                  'drone', 'arbitrary', 'aimless', 'weird', 'unusual']
 
@@ -63,7 +79,8 @@ def babble(r):
 
                             cache.append(f"{comment}")
                             print("New comment detected. Responding...")
-                            comment.reply(f"Hey you. I see that you mentioned '{word}.' I can do that!\n\n"
+                            comment.reply(f"Hello. I see that you mentioned '{word.lower()}.' I can do that "
+                                          f"in sentence form!\n\n"
                                           f"{sentence.capitalize()}{random.choice(rand_items.punctuation)}\n\n"
                                           "*Beep boop. I'm a prototype bot in the making!*\n"
                                           "*This action was performed automatically.*")
@@ -74,8 +91,10 @@ def babble(r):
 
 def pokemon_link(r):
     """Generates a link to a Pokemon if any are mentioned."""
+    # Points the bot at a particular submission.
     submission = r.submission(id="mpk4qo")
     all_comments = submission.comments.list()
+
     pokemon_list = ['Bulbasaur', 'Ivysaur', 'Venusaur', 'Charmander', 'Charmeleon', 'Charizard', 'Squirtle',
                     'Wartortle', 'Blastoise', 'Caterpie', 'Metapod', 'Butterfree', 'Weedle', 'Kakuna', 'Beedrill',
                     'Pidgey', 'Pidgeotto', 'Pidgeot', 'Rattata', 'Raticate', 'Spearow', 'Fearow', 'Ekans',
@@ -115,14 +134,14 @@ def pokemon_link(r):
 
 def delete_comments(r):
     """Deletes all the bot's comments from itself."""
-    # Directs bot to own test submission.
+    # Points the bot at a particular submission.
     submission = r.submission(id="mpk3s5")
+    all_comments = submission.comments.list()
 
     # Identifies and removes own comments.
-    all_comments = submission.comments.list()
     try:
         for comment in all_comments:
-            if comment.author == "test_bot_xena":
+            if comment.author == "test_bot_xena" and comment.author is not None:
                 print("Deleting comments...")
                 comment.delete()
     except AttributeError:
