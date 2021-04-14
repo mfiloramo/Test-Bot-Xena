@@ -20,15 +20,19 @@ def login():
 def summon_bot(r):
     """Looks at comments within own submission and automatically responds to user."""
     # Points the bot at a particular submission.
-    submission = r.submission(id="mpk3s5")
+    submission = r.submission(id="m986xw")
     all_comments = submission.comments.list()
 
     # Waits to be summoned upon command and replies to the comment.
     for comment in all_comments:
-        if "!summon" in comment.body or "xena" in comment.body and comment.author is not None and comment not in cache:
+        if "!summon" in comment.body or "xena" in comment.body and comment.author is not None\
+         and comment.author != "test_bot_xena" and comment not in cache:
                 print("New comment detected. Responding...")
-                comment.reply("I have been summoned.")
                 cache.append(comment)
+                comment.reply(f"I have been summoned.\n\n"
+                              "*Beep boop. I'm a prototype bot in the making!*\n"
+                              "*This action was performed automatically.*")
+                time.sleep(300)
 
 
 def log_track(r):
@@ -142,7 +146,7 @@ def delete_comments(r):
     try:
         for comment in all_comments:
             if comment.author == "test_bot_xena" and comment.author is not None:
-                print("Deleting comments...")
+                print("Deleting comment...")
                 comment.delete()
     except AttributeError:
         pass
