@@ -30,6 +30,10 @@ def run_bot(r):
     #     for line in opened_file:
     #         logged_posts.append(line.rstrip())
 
+    # Reply to a comment once the bot is summoned and the comment ID is unlogged.
+    # if "!summon" in comment.body and comment not in cache:
+    # log_file.write(f"{comment}\n")
+
 
 def babble(r):
     """Generate random sentences for each unlogged comment once bot is summoned."""
@@ -57,17 +61,13 @@ def babble(r):
                     for word in comment.body.split():
                         if word.lower() in key_words or word.capitalize() in key_words:
 
-                            # Reply to a comment once the bot is summoned and the comment ID is unlogged.
-                            # if "!summon" in comment.body and comment not in cache:
-                            # log_file.write(f"{comment}\n")
-
                             cache.append(f"{comment}")
                             print("New comment detected. Responding...")
                             comment.reply(f"Hey you. I see that you mentioned '{word}.' I can do that!\n\n"
                                           f"{sentence.capitalize()}{random.choice(rand_items.punctuation)}\n\n"
                                           "*Beep boop. I'm a prototype bot in the making!*\n"
                                           "*This action was performed automatically.*")
-                            # time.sleep(10)
+                            time.sleep(10)
         except AttributeError:
             pass
 
@@ -127,6 +127,7 @@ def delete_comments(r):
                 comment.delete()
     except AttributeError:
         pass
+
 
 # Log into the Reddit using the user agent.
 reddit = login()

@@ -10,6 +10,6 @@ r = praw.Reddit(user_agent="test_bot_xena",
                 )
 
 while True:
-    # reddit_bot.babble(r)
-    # reddit_bot.delete_comments(r)
-    reddit_bot.pokemon_link(r)
+    reddit_bot.babble(r)
+    # # reddit_bot.delete_comments(r)
+    # reddit_bot.pokemon_link(r)
