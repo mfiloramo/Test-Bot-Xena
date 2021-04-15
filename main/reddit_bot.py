@@ -137,17 +137,15 @@ def pokemon_link(r):
         pass
 
 
-def parse_subreddit(r):
-    """Parses all comments and comment replies in (most) posts within a subreddit."""
+def scrape_subreddit(r):
+    """Scrapes all comments and comment replies in all posts within a subreddit."""
     subreddit = reddit.subreddit("learnpython")
     for submission in subreddit.hot(limit=None):
-        print(f"{submission.title}\n\n\n")
+        print(f"{submission.title}\n")
         for comment in submission.comments:
-            print(comment.body)
+            print(f"{comment.body}\n")
             for reply in comment.replies:
-                # if isinstance(reply, MoreComments):
                 print(f"\t{reply.body}")
-
 
 
 def delete_comments(r):

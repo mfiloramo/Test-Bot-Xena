@@ -14,4 +14,4 @@ while True:
     # reddit_bot.delete_comments(r)
     # reddit_bot.pokemon_link(r)
     # reddit_bot.summon_bot(r)
-    reddit_bot.parse_subreddit(r)
+    reddit_bot.scrape_subreddit(r)
