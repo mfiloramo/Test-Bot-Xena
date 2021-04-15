@@ -4,6 +4,7 @@ import praw
 from main import config
 from modules import rand_items
 import random
+from praw.models import MoreComments
 
 
 def login():
@@ -134,6 +135,19 @@ def pokemon_link(r):
                         continue
     except AttributeError:
         pass
+
+
+def parse_subreddit(r):
+    """Parses all comments and comment replies in (most) posts within a subreddit."""
+    subreddit = reddit.subreddit("learnpython")
+    for submission in subreddit.hot(limit=None):
+        print(f"{submission.title}\n\n\n")
+        for comment in submission.comments:
+            print(comment.body)
+            for reply in comment.replies:
+                # if isinstance(reply, MoreComments):
+                print(f"\t{reply.body}")
+
 
 
 def delete_comments(r):
