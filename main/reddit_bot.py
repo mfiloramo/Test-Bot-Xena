@@ -138,14 +138,15 @@ def pokemon_link(r):
 
 
 def scrape_subreddit(r):
-    """Scrapes all comments and comment replies in all posts within a subreddit."""
+    """Scrapes and prints all comments and comment replies in all posts within a subreddit."""
     subreddit = reddit.subreddit("learnpython")
     for submission in subreddit.hot(limit=None):
-        print(f"{submission.title}\n")
+        # print(f"{submission.title}\n")
         for comment in submission.comments:
             print(f"{comment.body}\n")
             for reply in comment.replies:
-                print(f"\t{reply.body}")
+                if "code" in reply.body:
+                    print(f"\t{reply.body}")
 
 
 def delete_comments(r):
@@ -174,4 +175,5 @@ cache = []
 print("Running...")
 
 
-
+if __name__ == '__main__':
+    scrape_subreddit(reddit)
