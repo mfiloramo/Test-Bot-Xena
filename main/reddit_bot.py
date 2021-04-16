@@ -143,10 +143,9 @@ def scrape_subreddit(r):
     for submission in subreddit.hot(limit=None):
         # print(f"{submission.title}\n")
         for comment in submission.comments:
-            print(f"{comment.body}\n")
+            # print(f"{comment.body}\n")
             for reply in comment.replies:
-                if "code" in reply.body:
-                    print(f"\t{reply.body}")
+                print(f"\t{reply.body}")
 
 
 def delete_comments(r):
