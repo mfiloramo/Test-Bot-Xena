@@ -4,7 +4,6 @@ import praw
 from main import config
 from modules import rand_items
 import random
-from praw.models import MoreComments
 
 
 def login():
@@ -140,12 +139,12 @@ def pokemon_link(r):
 def scrape_subreddit(r):
     """Scrapes and prints all comments and comment replies in all posts within a subreddit."""
     subreddit = reddit.subreddit("learnpython")
-    for submission in subreddit.hot(limit=None):
-        # print(f"{submission.title}\n")
+    for submission in subreddit.new(limit=None):
+        print(f"{submission.title}\n\n")
         for comment in submission.comments:
-            # print(f"{comment.body}\n")
+            print(f"{comment.body}\n")
             for reply in comment.replies:
-                print(f"\t{reply.body}")
+                print(f"\t{reply.body}\n")
 
 
 def delete_comments(r):
