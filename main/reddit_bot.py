@@ -153,13 +153,14 @@ def auto_respond(r):
 
 def scrape_subreddit(r):
     """Scrapes and prints all comments and comment replies in all posts within a subreddit."""
-    subreddit = reddit.subreddit("learnpython")
-    for submission in subreddit.new(limit=None):
-        print(f"{submission.title}\n\n")
-        for comment in submission.comments:
-            print(f"{comment.body}\n")
-            for reply in comment.replies:
-                print(f"\t{reply.body}\n")
+    subreddit = reddit.subreddit("learnpython+aww")
+    while True:
+        for submission in subreddit.new(limit=10):
+            print(f"{submission.title}\n\n")
+            for comment in submission.comments:
+                print(f"{comment.body}\n")
+                for reply in comment.replies:
+                    print(f"\t{reply.body}\n")
 
 
 def delete_comments(r):
@@ -189,4 +190,4 @@ print("Running...")
 
 # Run the bot.
 if __name__ == '__main__':
-    auto_respond(reddit)
+    scrape_subreddit(reddit)
