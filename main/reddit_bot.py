@@ -136,6 +136,21 @@ def pokemon_link(r):
         pass
 
 
+def auto_respond(r):
+    """Continually scrapes a subreddit and replies to specified user."""
+    subreddit = reddit.subreddit("learnpython")
+    while True:
+        for submission in subreddit.new(limit=10):
+            for comment in submission.comments:
+                if comment.author == 'Calif0rnia_Soul' and comment not in cache:
+                    print("New comment detected. Responding...")
+                    comment.reply(f'Hi there, {comment.author}. I am your bot.\n\n'
+                                  '*Beep boop. I\'m a prototype bot in the making!*\n'
+                                  '*This action was performed automatically.*')
+                    cache.append(comment)
+                    time.sleep(10)
+
+
 def scrape_subreddit(r):
     """Scrapes and prints all comments and comment replies in all posts within a subreddit."""
     subreddit = reddit.subreddit("learnpython")
@@ -172,6 +187,6 @@ cache = []
 # Notify user that bot is running.
 print("Running...")
 
-
+# Run the bot.
 if __name__ == '__main__':
-    scrape_subreddit(reddit)
+    auto_respond(reddit)
