@@ -6,20 +6,17 @@ from modules import rand_items
 
 
 class RedditBot:
-    """An instance of a Reddit bot."""
+    """A model of a Reddit bot."""
 
-    def __init__(self, logged_in=False):
+    def __init__(self):
         """Initialize an instance of a Reddit bot and log in with agent/user credentials."""
-        self.login = \
-            praw.Reddit(user_agent=config.user_agent,
-                        username=config.username,
-                        password=config.password,
-                        client_id=config.client_id,
-                        client_secret=config.client_secret,
-                        )
-        if not logged_in:
-            print('Logged in.')
-            self.logged_in = True
+        self.login = praw.Reddit(user_agent=config.user_agent,
+                                 username=config.username,
+                                 password=config.password,
+                                 client_id=config.client_id,
+                                 client_secret=config.client_secret,
+                                 )
+        print('Logged in.')
 
     def scrape_subreddit(self):
         """Scrapes and prints all comments and comment replies in all posts within a subreddit."""
@@ -35,19 +32,23 @@ class RedditBot:
     def summon_bot(self):
         """Looks at comments within own submission and automatically responds to user."""
         # Points the bot at a particular submission.
-        submission = self.login.submission(id="m986xw")
+        submission = self.login.submission(id="mpk3s5")
         all_comments = submission.comments.list()
+        detect_words = ('!Summon', '!summon', 'Xena', 'xena')
 
         # Waits to be summoned upon command and replies to the comment.
         for comment in all_comments:
-            if "!summon" in comment.body or "xena" in comment.body and comment.author is not None \
-                    and comment.author != "test_bot_xena" and comment not in cache:
-                print("New comment detected. Responding...")
-                cache.append(comment)
-                comment.reply(f"I have been summoned.\n\n"
-                              "*Beep boop. I'm a prototype bot in the making!*\n"
-                              "*This action was performed automatically.*")
-                time.sleep(300)
+            for i in detect_words:
+                if i in comment.body and comment.author not in \
+                 (None, 'test_bot_xena') and comment not in cache:
+                    print("New comment detected. Responding...")
+                    cache.append(comment)
+                    comment.reply(f"I have been summoned.\n\n"
+                                  "*Beep boop. I'm a prototype bot in the making!*\n"
+                                  "*This action was performed automatically.*")
+
+                    # Regulate the speed of the bot's activity.
+                    # time.sleep(1)
 
     def log_track(self):
         """
@@ -141,6 +142,8 @@ class RedditBot:
                                           f"{pokemon} [here](https://www.pokemon.com/us/pokedex/{word.lower()}).\n\n"
                                           "*Beep boop. I'm a prototype bot in the making!*\n"
                                           "*This action was performed automatically.*")
+
+                            # Regulate the speed of the bot's activity.
                             time.sleep(120)
                             continue
         except AttributeError:
@@ -158,6 +161,8 @@ class RedditBot:
                                       '*Beep boop. I\'m a prototype bot in the making!*\n'
                                       '*This action was performed automatically.*')
                         cache.append(comment)
+
+                        # Regulate the speed of the bot's activity.
                         time.sleep(10)
 
     def delete_comments(self):
@@ -184,4 +189,4 @@ run_bot = RedditBot()
 if __name__ == '__main__':
     print('Running...')
     while True:
-        run_bot.babble()
+        run_bot.delete_comments()
