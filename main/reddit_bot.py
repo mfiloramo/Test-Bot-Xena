@@ -55,42 +55,42 @@ def log_track(r):
 
 def babble(r):
     """Generate random sentences for each unlogged comment once bot is summoned."""
-    # Points the bot at a particular submission.
-    submission = r.submission(id="mpk3s5")
-    all_comments = submission.comments.list()
+    while True:
+        # Points the bot at a particular submission.
+        submission = r.submission(id="mpk3s5")
+        all_comments = submission.comments.list()
 
-    key_words = ['babble', 'blabber', 'gibberish', 'jargon', 'rant', 'ranting', 'ranted', 'random',
-                 'drone', 'arbitrary', 'aimless', 'weird', 'unusual']
+        key_words = ['babble', 'blabber', 'gibberish', 'jargon', 'rant', 'ranting', 'ranted', 'random',
+                     'drone', 'arbitrary', 'aimless', 'weird', 'unusual']
 
-    # Forms the babble sentences each time per comment.
-    for comment in all_comments:
-        word_count = 0
-        word_limit = random.randint(4, 12)
-        sentence = ""
-        while word_count < word_limit:
-            sentence += random.choice([random.choice(rand_items.conjunctions).lower(),
-                                       random.choice(rand_items.words)]).lower() + str(" ")
-            word_count += 1
-        if word_count == word_limit:
-            sentence += random.choice([random.choice(rand_items.conjunctions).lower(),
-                                       random.choice(rand_items.words)]).lower()
+        # Forms the babble sentences each time per comment.
+        for comment in all_comments:
+            word_count = 0
+            word_limit = random.randint(4, 12)
+            sentence = ""
+            while word_count < word_limit:
+                sentence += random.choice([random.choice(rand_items.conjunctions).lower(),
+                                           random.choice(rand_items.words)]).lower() + str(" ")
+                word_count += 1
+            if word_count == word_limit:
+                sentence += random.choice([random.choice(rand_items.conjunctions).lower(),
+                                           random.choice(rand_items.words)]).lower()
 
-        try:
-            for comment in all_comments:
-                if comment not in cache and comment.author is not None and comment.author != "test_bot_xena":
-                    for word in comment.body.split():
-                        if word.lower() in key_words or word.capitalize() in key_words:
+            try:
+                for comment in all_comments:
+                    if comment not in cache and comment.author is not None and comment.author != "test_bot_xena":
+                        for word in comment.body.split():
+                            if word.lower() in key_words or word.capitalize() in key_words:
 
-                            cache.append(f"{comment}")
-                            print("New comment detected. Responding...")
-                            comment.reply(f"Hello. I see that you mentioned '{word.lower()}.' I can do that "
-                                          f"in sentence form!\n\n"
-                                          f"{sentence.capitalize()}{random.choice(rand_items.punctuation)}\n\n"
-                                          "*Beep boop. I'm a prototype bot in the making!*\n"
-                                          "*This action was performed automatically.*")
-                            time.sleep(10)
-        except AttributeError:
-            pass
+                                cache.append(f"{comment}")
+                                print("New comment detected. Responding...")
+                                comment.reply(f"Hello. I see that you mentioned '{word.lower()}.' I can do that "
+                                              f"in sentence form!\n\n"
+                                              f"{sentence.capitalize()}{random.choice(rand_items.punctuation)}\n\n"
+                                              "*Beep boop. I'm a prototype bot in the making!*\n"
+                                              "*This action was performed automatically.*")
+            except AttributeError:
+                pass
 
 
 def pokemon_link(r):
@@ -190,4 +190,4 @@ print("Running...")
 
 # Run the bot.
 if __name__ == '__main__':
-    scrape_subreddit(reddit)
+    delete_comments(reddit)

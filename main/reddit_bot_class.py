@@ -8,7 +8,7 @@ from modules import rand_items
 class RedditBot:
     """An instance of a Reddit bot."""
 
-    def __init__(self):
+    def __init__(self, logged_in=False):
         """Initialize an instance of a Reddit bot and log in with agent/user credentials."""
         self.login = \
             praw.Reddit(user_agent=config.user_agent,
@@ -17,11 +17,12 @@ class RedditBot:
                         client_id=config.client_id,
                         client_secret=config.client_secret,
                         )
-        print('Logged in.')
+        if not logged_in:
+            print('Logged in.')
+            self.logged_in = True
 
     def scrape_subreddit(self):
         """Scrapes and prints all comments and comment replies in all posts within a subreddit."""
-        print('Running...')
         subreddit = self.login.subreddit('learnpython')
         while True:
             for submission in subreddit.new(limit=10):
@@ -33,7 +34,6 @@ class RedditBot:
 
     def summon_bot(self):
         """Looks at comments within own submission and automatically responds to user."""
-        print('Running...')
         # Points the bot at a particular submission.
         submission = self.login.submission(id="m986xw")
         all_comments = submission.comments.list()
@@ -54,7 +54,6 @@ class RedditBot:
         Keeps track of posts in a separate text file when run from a local machine.
         # Currently cannot be actively managed/used on a cloud server.
         """
-        print('Running...')
         # Points the bot at a particular submission.
         submission = self.login.submission(id="mpk3s5")
         all_comments = submission.comments.list()
@@ -69,7 +68,6 @@ class RedditBot:
 
     def babble(self):
         """Generate random sentences for each unlogged comment once bot is summoned."""
-        print('Running...')
         # Points the bot at a particular submission.
         submission = self.login.submission(id="mpk3s5")
         all_comments = submission.comments.list()
@@ -77,38 +75,36 @@ class RedditBot:
         key_words = ['babble', 'blabber', 'gibberish', 'jargon', 'rant', 'ranting', 'ranted', 'random',
                      'drone', 'arbitrary', 'aimless', 'weird', 'unusual']
 
-        # Forms the babble sentences each time per comment.
-        for comment in all_comments:
+        def _make_sentence():
+            sentence = ''
             word_count = 0
-            word_limit = random.randint(4, 12)
-            sentence = ""
+            word_limit = random.randint(3, 12)
+            punctuation = random.choice(rand_items.punctuation)
             while word_count < word_limit:
-                sentence += random.choice([random.choice(rand_items.conjunctions).lower(),
-                                           random.choice(rand_items.words)]).lower() + str(" ")
+                conjunction = random.choice(rand_items.conjunctions).lower()
+                word = random.choice(rand_items.words).lower()
+                sentence += f"{random.choice([conjunction, word])} "
                 word_count += 1
-            if word_count == word_limit:
-                sentence += random.choice([random.choice(rand_items.conjunctions).lower(),
-                                           random.choice(rand_items.words)]).lower()
+            sentence = f"{sentence.capitalize().strip()}{punctuation}"
+            return sentence
 
-                while True: # This isn't looping. How to get it to continously loop?
-                    try:
-                        for comment in all_comments:
-                            if comment not in cache and comment.author is not None and comment.author != "test_bot_xena":
-                                for word in comment.body.split():
-                                    if word.lower() in key_words or word.capitalize() in key_words:
-                                        cache.append(f"{comment}")
-                                        print("New comment detected. Responding...")
-                                        comment.reply(f"Hello. I see that you mentioned '{word.lower()}.' I can do that "
-                                                      f"in sentence form!\n\n"
-                                                      f"{sentence.capitalize()}{random.choice(rand_items.punctuation)}\n\n"
-                                                      "*Beep boop. I'm a prototype bot in the making!*\n"
-                                                      "*This action was performed automatically.*")
-                    except AttributeError:
-                        pass
+        # while True:
+        for comment in all_comments:
+            sentence = _make_sentence()
+            if comment.author not in (None, 'test_bot_xena') and comment not in cache\
+                    and comment.author == 'Calif0rnia_Soul':
+                for word in comment.body.split():
+                    if (word.lower() or word.capitalize()) in key_words:
+                        print("New comment detected. Responding...")
+                        comment.reply(f"Hello. I see that you mentioned '{word.lower()}.' I can do that "
+                                      f"in sentence form!\n\n"
+                                      f"{sentence}\n\n"
+                                      "*Beep boop. I'm a prototype bot in the making!*\n"
+                                      "*This action was performed automatically.*")
+                        cache.append(comment)
 
     def pokemon_link(self):
         """Generates a link to a Pokemon if any are mentioned."""
-        print('Running...')
         # Points the bot at a particular submission.
         submission = self.login.submission(id="mpk4qo")
         all_comments = submission.comments.list()
@@ -152,7 +148,6 @@ class RedditBot:
 
     def auto_respond(self):
         """Continually scrapes a subreddit and replies to specified user."""
-        print('Running...')
         subreddit = self.login.subreddit("learnpython")
         while True:
             for submission in subreddit.new(limit=10):
@@ -172,17 +167,21 @@ class RedditBot:
         all_comments = submission.comments.list()
 
         # Identifies and removes own comments.
-        try:
+        while True:
             for comment in all_comments:
                 if comment.author == "test_bot_xena" and comment.author is not None:
                     print("Deleting comment...")
                     comment.delete()
-        except AttributeError:
-            pass
 
 
+# Set up empty cache for bot usage (typically for tracking posts).
 cache = []
 
+# Create an instance of the bot.
+run_bot = RedditBot()
 
+# Run the bot.
 if __name__ == '__main__':
-    RedditBot().babble()
+    print('Running...')
+    while True:
+        run_bot.babble()
