@@ -1,6 +1,0 @@
-Reddit Test Bot Information
-
-Name: Test Bot Xena
-Personal Use Script: whlMP0C9rsqDsg
-Secret: UXgHQPC4fUYPcaHCz3MgkByt0G4lvg
-Redirect URI: http://www.reddit.com/
