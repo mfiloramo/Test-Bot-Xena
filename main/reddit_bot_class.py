@@ -21,13 +21,12 @@ class RedditBot:
     def scrape_subreddit(self):
         """Scrapes and prints all comments and comment replies in all posts within a subreddit."""
         subreddit = self.login.subreddit('learnpython')
-        while True:
-            for submission in subreddit.new(limit=10):
-                print(f"{submission.title}\n\n")
-                for comment in submission.comments:
-                    print(f"{comment.body}\n")
-                    for reply in comment.replies:
-                        print(f"\t{reply.body}\n")
+        for submission in subreddit.new(limit=10):
+            print(f"{submission.title}\n\n")
+            for comment in submission.comments:
+                print(f"{comment.body}\n")
+                for reply in comment.replies:
+                    print(f"\t{reply.body}\n")
 
     def summon_bot(self):
         """Looks at comments within own submission and automatically responds to user."""
@@ -189,4 +188,4 @@ run_bot = RedditBot()
 if __name__ == '__main__':
     print('Running...')
     while True:
-        run_bot.delete_comments()
+        run_bot.scrape_subreddit()
