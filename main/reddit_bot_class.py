@@ -9,7 +9,7 @@ class RedditBot:
     """A model of a Reddit bot."""
 
     def __init__(self):
-        """Initialize an instance of a Reddit bot and log in with agent/user credentials."""
+        """Initializes an instance of a Reddit bot and logs in with agent/user credentials."""
         self.login = praw.Reddit(user_agent=config.user_agent,
                                  username=config.username,
                                  password=config.password,
@@ -37,8 +37,8 @@ class RedditBot:
 
         # Waits to be summoned upon command and replies to the comment.
         for comment in all_comments:
-            for i in detect_words:
-                if i in comment.body and comment.author not in \
+            for word in detect_words:
+                if word in comment.body and comment.author not in \
                  (None, 'test_bot_xena') and comment not in cache:
                     print("New comment detected. Responding...")
                     cache.append(comment)
