@@ -4,7 +4,7 @@ import time
 import random
 from modules import rand_items
 
-
+t = "t"
 class RedditBot:
     """A model of a Reddit bot."""
 
