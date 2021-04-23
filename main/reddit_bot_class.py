@@ -52,15 +52,14 @@ class RedditBot:
     def log_track(self):
         """
         Keeps track of posts in a separate text file when run from a local machine.
-        # Currently cannot be actively managed/used on a cloud server.
+        Currently cannot be actively managed/used on a cloud server.
         """
         # Points the bot at a particular submission.
         submission = self.login.submission(id="mpk3s5")
         all_comments = submission.comments.list()
 
         for comment in all_comments:
-            # Currently has no particular condition for responses.
-            if comment.author is not None and comment not in log_file:
+            if comment.author not in [None, 'test_bot_xena'] and comment not in log_file:
                 with open('log.txt', 'r+') as log_file:
                     opened_file = log_file.readlines()
                     for line in opened_file:
