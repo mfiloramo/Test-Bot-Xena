@@ -2,11 +2,11 @@ import praw
 from main import reddit_bot
 
 
-r = praw.Reddit(user_agent="test_bot_xena",
-                username="test_bot_xena",
-                password="Quailk777!!!",
-                client_id="whlMP0C9rsqDsg",
-                client_secret="UXgHQPC4fUYPcaHCz3MgkByt0G4lvg",
+r = praw.Reddit(user_agent=config.user_agent,
+                username=config.username,
+                password=config.password,
+                client_id=config.client_id,
+                client_secret=config.client_secret,
                 )
 
 while True:
