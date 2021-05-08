@@ -105,7 +105,7 @@ class RedditBot:
     def pokemon_link(self):
         """Generates a link to a Pokemon if any are mentioned."""
         # Points the bot at a particular submission.
-        submission = self.login.submission(id="mpk4qo")
+        submission = self.login.submission(id="mpk3s5")
         all_comments = submission.comments.list()
 
         pokemon_list = ['Bulbasaur', 'Ivysaur', 'Venusaur', 'Charmander', 'Charmeleon', 'Charizard', 'Squirtle',
@@ -149,7 +149,7 @@ class RedditBot:
 
     def auto_respond(self):
         """Continually scrapes a subreddit and replies to specified user."""
-        subreddit = self.login.subreddit("learnpython")
+        subreddit = self.login.subreddit("mpk3s5")
         while True:
             for submission in subreddit.new(limit=10):
                 for comment in submission.comments:
