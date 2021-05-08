@@ -2,6 +2,7 @@ import praw
 import config
 import time
 import random
+import re
 from modules import rand_items
 
 
@@ -107,6 +108,9 @@ class RedditBot:
         # Points the bot at a particular submission.
         submission = self.login.submission(id="mpk3s5")
         all_comments = submission.comments.list()
+
+        # You can use Regex to compile this list into a Match object and ues re.IGNORECASE to make it so any
+        # case spelling will be detected by the bot.
 
         pokemon_list = ['Bulbasaur', 'Ivysaur', 'Venusaur', 'Charmander', 'Charmeleon', 'Charizard', 'Squirtle',
                         'Wartortle', 'Blastoise', 'Caterpie', 'Metapod', 'Butterfree', 'Weedle', 'Kakuna', 'Beedrill',
