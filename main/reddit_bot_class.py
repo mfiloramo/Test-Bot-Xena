@@ -2,7 +2,6 @@ import praw
 import config
 import time
 import random
-import re
 from modules import rand_items
 
 
